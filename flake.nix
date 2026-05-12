@@ -14,21 +14,27 @@
   outputs = { self, nixpkgs, unpins-lib }:
     let
       ulib = unpins-lib.lib;
+      lib = nixpkgs.lib;
       nixpkgsFor = ulib.forAllNative (system: import nixpkgs { inherit system; });
+
+      # tree as a portable single binary for any pkgs view.
+      # - On Linux: pkgsStatic.tree yields fully-static musl.
+      # - On Darwin: libSystem stays dynamic (Apple constraint), but tree
+      #   has no other runtime deps so the binary is libSystem-only.
+      buildTree = pkgs:
+        pkgs.pkgsStatic.tree.overrideAttrs (_: {
+          stripAllList = [ "bin" ];
+        });
     in
     {
       packages = ulib.forAllNative (system:
-        let
-          pkgs = nixpkgsFor.${system};
-        in
+        let pkgs = nixpkgsFor.${system}; in
         {
-          # pkgsStatic on Linux yields a fully static musl binary.
-          # On Darwin, libSystem stays dynamic (Apple constraint), but
-          # everything else is linked statically — portable across any
-          # macOS without a /nix/store.
-          default = pkgs.pkgsStatic.tree.overrideAttrs (old: {
-            stripAllList = [ "bin" ];
-          });
+          default = buildTree pkgs;
+        } // lib.optionalAttrs (system == "aarch64-darwin") {
+          # Cross-built tree for x86_64-darwin, hosted on macos-14 — same
+          # single-runner pattern as packages.x86_64-linux."windows-x86_64".
+          "darwin-x86_64" = buildTree pkgs.pkgsCross.x86_64-darwin;
         });
 
       apps = ulib.forAllNative (system: {
