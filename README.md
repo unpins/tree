@@ -5,6 +5,7 @@ Standalone build of [tree](https://oldmanprogrammer.net/source.php?dir=projects/
 [![CI](https://github.com/unpins/tree/actions/workflows/tree.yml/badge.svg)](https://github.com/unpins/tree/actions)
 ![Linux](https://img.shields.io/badge/Linux-✓-success?logo=linux&logoColor=white)
 ![macOS](https://img.shields.io/badge/macOS-✓-success?logo=apple&logoColor=white)
+![Windows](https://img.shields.io/badge/Windows-✓-success?logo=windows&logoColor=white)
 
 Part of the [unpins](https://unpins.org) project — native single-binary builds with no third-party runtime dependencies.
 

@@ -1,0 +1,77 @@
+--- a/tree.h	2026-05-14 08:21:27.826805966 -0300
++++ b/tree.h	2026-05-14 08:23:29.433863916 -0300
+@@ -30,8 +30,64 @@
+ #include <ctype.h>
+ #include <unistd.h>
+ #include <limits.h>
++#ifdef _WIN32
++/* Windows (MinGW) compatibility shims. tree's source assumes POSIX
++ * uid/gid/passwd/group, symlinks, locale (langinfo), realpath and the
++ * setuid/setgid/sticky stat bits — none of which exist as such on Win32.
++ * Each shim picks a value that lands in tree's already-present fallback
++ * path (NULL/-1/0), so behavior degrades gracefully rather than breaking. */
++
++/* BSD typedefs used in hash.c/html.c — MinGW provides pid_t but not these. */
++typedef unsigned int   uid_t;
++typedef unsigned int   gid_t;
++typedef unsigned char  u_char;
++typedef unsigned short u_short;
++typedef unsigned int   u_int;
++typedef unsigned long  u_long;
++
++/* POSIX file-type bits missing from MinGW's sys/stat.h. Values chosen
++ * inside S_IFMT and disjoint from existing IFREG/IFDIR/... — they will
++ * never actually match since lstat==stat on Windows and the OS doesn't
++ * report symlink/socket modes through stat. */
++#ifndef S_IFLNK
++#define S_IFLNK  0xA000
++#endif
++#ifndef S_IFSOCK
++#define S_IFSOCK 0xC000
++#endif
++/* setuid/setgid/sticky: stub to 0; tree's bitwise checks become no-ops. */
++#ifndef S_ISUID
++#define S_ISUID 0
++#endif
++#ifndef S_ISGID
++#define S_ISGID 0
++#endif
++#ifndef S_ISVTX
++#define S_ISVTX 0
++#endif
++
++/* No POSIX symlinks on Windows; treat lstat as stat. */
++#define lstat stat
++
++/* Function shims. */
++struct passwd { char *pw_name; };
++struct group  { char *gr_name; };
++static inline struct passwd *getpwuid(uid_t uid)  { (void)uid; return NULL; }
++static inline struct group  *getgrgid(gid_t gid)  { (void)gid; return NULL; }
++#define CODESET 0
++static inline const char *nl_langinfo(int item)   { (void)item; return "UTF-8"; }
++static inline ssize_t readlink(const char *p, char *b, size_t s) {
++    (void)p; (void)b; (void)s; return -1;
++}
++static inline char *realpath(const char *p, char *r) { (void)p; (void)r; return NULL; }
++static inline int gethostname(char *n, size_t len) {
++    if (len) { strncpy(n, "localhost", len); n[len-1] = 0; }
++    return 0;
++}
++#else
+ #include <pwd.h>
+ #include <grp.h>
++#endif
+ #ifdef __EMX__  /* for OS/2 systems */
+ #  define INCL_DOSFILEMGR
+ #  define INCL_DOSNLS
+@@ -51,7 +107,9 @@
+ #endif
+ 
+ #include <locale.h>
++#ifndef _WIN32
+ #include <langinfo.h>
++#endif
+ #include <wchar.h>
+ #include <wctype.h>
+ #include <stdbool.h>
