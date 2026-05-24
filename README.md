@@ -41,3 +41,8 @@ The first invocation will offer to add the [unpins.cachix.org](https://unpins.ca
 ## Manual download
 
 The [Releases](https://github.com/unpins/tree/releases) page has standalone binaries and a `.tar.zst` data archive (man pages and completions) for manual download.
+
+## Build notes
+
+- **Windows** uses [Cosmopolitan](https://justine.lol/cosmopolitan/) (cosmocc), not mingw. The mingw cross built and ran, but msvcrt's `readdir()` runs in ANSI code-page mode and silently drops filenames outside the active code page (CJK, emoji, often Latin-1 accents on a CP437/CP850 console). Cosmocc's libc uses Win32 wide-char APIs internally and exposes UTF-8 to user code, so filenames round-trip correctly. Cost: ~440KB larger on disk (560K APE vs 120K mingw PE).
+- No upstream features are disabled; no platforms are excluded.
