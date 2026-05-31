@@ -40,7 +40,11 @@ The first invocation will offer to add the [unpins.cachix.org](https://unpins.ca
 
 ## Manual download
 
-The [Releases](https://github.com/unpins/tree/releases) page has standalone binaries and a `.tar.zst` data archive (man pages and completions) for manual download.
+The [Releases](https://github.com/unpins/tree/releases) page has standalone binaries for manual download.
+
+## Man pages
+
+`tree.1` is embedded in the binary — read it with `unpin man tree`.
 
 ## Build notes
 
