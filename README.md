@@ -9,18 +9,18 @@ Standalone build of [tree](https://oldmanprogrammer.net/source.php?dir=projects/
 
 Part of the [unpins](https://unpins.org) project — native single-binary builds with no third-party runtime dependencies.
 
-## Installation
+## Usage
 
-Install with [unpin](https://github.com/unpins/unpin):
+Run the `tree` program with [unpin](https://github.com/unpins/unpin):
 
 ```bash
-unpin tree
+unpin tree -L 2 dir/
 ```
 
-Or run without installing:
+To install it onto your PATH:
 
 ```bash
-unpin run tree
+unpin install tree
 ```
 
 ## Build locally
