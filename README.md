@@ -1,13 +1,13 @@
 # tree
 
-Standalone build of [tree](https://oldmanprogrammer.net/source.php?dir=projects/tree).
+[tree](https://oldmanprogrammer.net/source.php?dir=projects/tree) as a single self-contained binary, built natively for Linux, macOS, and Windows.
 
 [![CI](https://github.com/unpins/tree/actions/workflows/tree.yml/badge.svg)](https://github.com/unpins/tree/actions)
 ![Linux](https://img.shields.io/badge/Linux-✓-success?logo=linux&logoColor=white)
 ![macOS](https://img.shields.io/badge/macOS-✓-success?logo=apple&logoColor=white)
 ![Windows](https://img.shields.io/badge/Windows-✓-success?logo=windows&logoColor=white)
 
-Part of the [unpins](https://unpins.org) project — native single-binary builds with no third-party runtime dependencies.
+Part of the [unpins](https://unpins.org) catalog; install it with [`unpin`](https://github.com/unpins/unpin): `unpin install tree`.
 
 ## Usage
 
@@ -22,6 +22,10 @@ To install it onto your PATH:
 ```bash
 unpin install tree
 ```
+
+## Man pages
+
+`tree.1` is embedded in the binary — read it with `unpin man tree`.
 
 ## Build locally
 
@@ -41,10 +45,6 @@ The first invocation will offer to add the [unpins.cachix.org](https://unpins.ca
 ## Manual download
 
 The [Releases](https://github.com/unpins/tree/releases) page has standalone binaries for manual download.
-
-## Man pages
-
-`tree.1` is embedded in the binary — read it with `unpin man tree`.
 
 ## Build notes
 
