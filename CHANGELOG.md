@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [v2.3.2-2] - 2026-06-16
+
 Packaging-only re-release — no functional changes to `tree`.
 
 ## [v2.3.2-1] - 2026-06-03
