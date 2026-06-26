@@ -25,5 +25,11 @@
       inherit self;
       name = "tree";
       windowsCosmo = true;
+
+      # Build via the unpin-llvm engine + emit a bitcode multicall module.
+      engine = "unpin-llvm";
+      multicall = {
+        programs = [{ name = "tree"; }];
+      };
     };
 }
