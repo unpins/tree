@@ -17,7 +17,7 @@
   # Cosmocc's libc uses Win32 wide-char APIs internally and exposes UTF-8 to
   # user code, so filenames round-trip correctly. It also auto-sets
   # `SetConsoleOutputCP(CP_UTF8)` at startup so box-drawing chars render
-  # without manual `chcp 65001`. Cost: ~440KB extra on disk (560K APE vs 120K
+  # without manual `chcp 65001`. Cost: ~440KB extra on disk (560K cosmo PE vs 120K
   # mingw PE). The `LDFLAGS=` override needed for apelink lives in
   # nix-lib/cosmo/tree.nix (auto-discovered via readDir).
   outputs = { self, unpins-lib }:

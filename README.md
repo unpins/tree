@@ -50,3 +50,4 @@ The [Releases](https://github.com/unpins/tree/releases) page has standalone bina
 
 - **Windows** uses [Cosmopolitan](https://justine.lol/cosmopolitan/) (cosmocc), not mingw. The mingw cross built and ran, but msvcrt's `readdir()` runs in ANSI code-page mode and silently drops filenames outside the active code page (CJK, emoji, often Latin-1 accents on a CP437/CP850 console). Cosmocc's libc uses Win32 wide-char APIs internally and exposes UTF-8 to user code, so filenames round-trip correctly. Cost: larger on disk than the 120K mingw PE — cosmocc's libc is heavier.
 - No upstream features are disabled; no platforms are excluded.
+- **Tests:** tree ships no test suite of its own (a plain Makefile with no `make check` target), so there is nothing to wire; the release smoke test runs `tree --version`.
