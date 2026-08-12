@@ -24,6 +24,8 @@
     unpins-lib.lib.mkStandaloneFlake {
       inherit self;
       name = "tree";
+      smoke = [ "--version" ];
+      smokePattern = "^tree v[0-9]+\\.[0-9]+";
       windowsCosmo = true;
 
       # Build via the unpin-llvm engine + emit a bitcode multicall module.
