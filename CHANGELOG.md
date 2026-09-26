@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Built by the same compiler as the rest of the catalog. The Linux x86_64
+  binary grew from 148 KB to 220 KB; behaviour is unchanged.
+
 ## [2.3.2-2] - 2026-06-16
 
 Packaging-only re-release — no functional changes to `tree`.
