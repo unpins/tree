@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.3.2-3] - 2026-09-26
+
 ### Changed
 
 - Built by the same compiler as the rest of the catalog. The Linux x86_64
