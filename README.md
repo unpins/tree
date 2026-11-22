@@ -49,5 +49,4 @@ The [Releases](https://github.com/unpins/tree/releases) page has standalone bina
 ## Build notes
 
 - **Windows** uses [Cosmopolitan](https://justine.lol/cosmopolitan/), not mingw: a mingw build silently drops filenames outside the active code page (CJK, emoji, often Latin-1 accents on a CP437/CP850 console), while with Cosmopolitan filenames round-trip correctly. Cost: larger on disk than the 120K mingw build.
-- No upstream features are disabled; no platforms are excluded.
 - **Tests:** tree ships no test suite of its own (a plain Makefile with no `make check` target), so there is nothing to wire; the release smoke test runs `tree --version`.
